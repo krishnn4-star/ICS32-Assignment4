@@ -14,3 +14,19 @@ def join(username, password):
             "token": ""
         }
     })
+
+def direct_message(
+        token,
+        message,
+        recipient,
+        timestamp):
+
+    return json.dumps({
+        "token": token,
+        "directmessage": {
+            "entry": message,
+            "recipient": recipient,
+            "timestamp": timestamp
+        }
+    })
+
