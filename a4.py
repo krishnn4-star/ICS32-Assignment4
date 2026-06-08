@@ -1,6 +1,10 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox
 from ds_messenger import DirectMessenger
+import json
+from pathlib import Path
+
+LOCAL_STORE = Path("local_store.json")
 
 class MessengerApp:
     def __init__(self, root):
@@ -30,6 +34,7 @@ class MessengerApp:
         self.contact_list = tk.Listbox(self.left_frame, width=25)
         self.contact_list.pack(fill=tk.Y, expand=True)
         self.contact_list.bind("<<ListboxSelect>>", self.select_contact)
+        self.load_contacts()
 
         self.add_button = tk.Button(
             self.left_frame,
@@ -62,12 +67,32 @@ class MessengerApp:
         )
         self.send_button.pack(fill=tk.X)
 
+    def save_contacts(self):
+        data = {
+            "contacts": self.contacts
+        }
+
+        with LOCAL_STORE.open("w") as file:
+            json.dump(data, file)
+
+
+    def load_contacts(self):
+        if LOCAL_STORE.exists():
+            with LOCAL_STORE.open("r") as file:
+                data = json.load(file)
+
+            self.contacts = data.get("contacts", [])
+
+            for contact in self.contacts:
+                self.contact_list.insert(tk.END, contact)
+
     def add_user(self):
         user = simpledialog.askstring("Add User", "Enter username:")
 
         if user and user not in self.contacts:
             self.contacts.append(user)
             self.contact_list.insert(tk.END, user)
+            self.save_contacts()
 
     def select_contact(self, event):
         selection = self.contact_list.curselection()
