@@ -129,3 +129,7 @@ class MessengerApp:
                 )
 
         self.root.after(5000, self.check_new_messages)
+
+root = tk.Tk()
+app = MessengerApp(root)
+root.mainloop()
