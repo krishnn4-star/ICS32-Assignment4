@@ -36,3 +36,9 @@ def retrieve_new(token):
         "token": token,
         "directmessage": "new"
     })
+def retrieve_all(token):
+
+    return json.dumps({
+        "token": token,
+        "directmessage": "all"
+    })
