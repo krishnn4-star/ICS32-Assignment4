@@ -51,6 +51,7 @@ class DirectMessenger:
                 timestamp
             )
 
+
             client.sendall(dm_msg.encode())
 
             response = client.recv(4096).decode()
@@ -62,4 +63,24 @@ class DirectMessenger:
 
         except Exception:
             return False
+
+    def retrieve_new(self) -> list:
+        try:
+            client = self._connect_and_join()
+
+            if client is None:
+                return []
+
+            request = ds_protocol.retrieve_new(self.token)
+            client.sendall(request.encode())
+
+            response = client.recv(4096).decode()
+            messages = ds_protocol.extract_json(response)
+
+            client.close()
+
+            return self._convert_messages(messages)
+
+        except Exception:
+            return []
 
