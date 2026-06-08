@@ -42,3 +42,18 @@ def retrieve_all(token):
         "token": token,
         "directmessage": "all"
     })
+
+def extract_json(json_msg):
+
+    data = json.loads(json_msg)
+
+    response = data["response"]
+
+    if "messages" in response:
+        return response["messages"]
+
+    return Response(
+        response.get("type"),
+        response.get("message"),
+        response.get("token", "")
+    )
