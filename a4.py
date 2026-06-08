@@ -78,3 +78,21 @@ class MessengerApp:
 
             self.message_display.delete("1.0", tk.END)
             self.load_messages_for_contact()
+
+    def send_message(self):
+        if not self.current_contact:
+            messagebox.showerror("Error", "Select a user first.")
+            return
+
+        text = self.entry_box.get("1.0", tk.END).strip()
+
+        if not text:
+            return
+
+        success = self.messenger.send(text, self.current_contact)
+
+        if success:
+            self.message_display.insert(tk.END, f"Me: {text}\n")
+            self.entry_box.delete("1.0", tk.END)
+        else:
+            messagebox.showerror("Error", "Message failed to send.")
