@@ -104,3 +104,16 @@ class DirectMessenger:
         except Exception:
             return []
 
+    def _convert_messages(self, messages):
+        result = []
+
+        for msg in messages:
+            dm = DirectMessage()
+            dm.message = msg.get("message")
+            dm.timestamp = msg.get("timestamp")
+            dm.sender = msg.get("from")
+            dm.recipient = msg.get("recipient")
+            result.append(dm)
+
+        return result
+
