@@ -61,3 +61,12 @@ class MessengerApp:
             command=self.send_message
         )
         self.send_button.pack(fill=tk.X)
+
+    def add_user(self):
+        user = simpledialog.askstring("Add User", "Enter username:")
+
+        if user and user not in self.contacts:
+            self.contacts.append(user)
+            self.contact_list.insert(tk.END, user)
+
+    
