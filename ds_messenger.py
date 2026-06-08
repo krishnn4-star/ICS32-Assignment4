@@ -10,3 +10,10 @@ class DirectMessage:
         self.sender = None
         self.message = None
         self.timestamp = None
+
+class DirectMessenger:
+    def __init__(self, dsuserver=None, username=None, password=None):
+        self.dsuserver = dsuserver
+        self.username = username
+        self.password = password
+        self.token = None
