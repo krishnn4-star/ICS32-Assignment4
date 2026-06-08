@@ -22,3 +22,42 @@ class MessengerApp:
 
         self.setup_gui()
         self.root.after(5000, self.check_new_messages)
+
+    def setup_gui(self):
+        self.left_frame = tk.Frame(self.root)
+        self.left_frame.pack(side=tk.LEFT, fill=tk.Y)
+
+        self.contact_list = tk.Listbox(self.left_frame, width=25)
+        self.contact_list.pack(fill=tk.Y, expand=True)
+        self.contact_list.bind("<<ListboxSelect>>", self.select_contact)
+
+        self.add_button = tk.Button(
+            self.left_frame,
+            text="Add User",
+            command=self.add_user
+        )
+        self.add_button.pack(fill=tk.X)
+
+        self.right_frame = tk.Frame(self.root)
+        self.right_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
+
+        self.message_display = tk.Text(
+            self.right_frame,
+            height=20,
+            width=60
+        )
+        self.message_display.pack(fill=tk.BOTH, expand=True)
+
+        self.entry_box = tk.Text(
+            self.right_frame,
+            height=4,
+            width=60
+        )
+        self.entry_box.pack(fill=tk.X)
+
+        self.send_button = tk.Button(
+            self.right_frame,
+            text="Send",
+            command=self.send_message
+        )
+        self.send_button.pack(fill=tk.X)
