@@ -111,3 +111,21 @@ class MessengerApp:
                     tk.END,
                     f"Me: {msg.message}\n"
                 )
+
+    def check_new_messages(self):
+        new_messages = self.messenger.retrieve_new()
+
+        for msg in new_messages:
+            sender = msg.sender
+
+            if sender and sender not in self.contacts:
+                self.contacts.append(sender)
+                self.contact_list.insert(tk.END, sender)
+
+            if sender == self.current_contact:
+                self.message_display.insert(
+                    tk.END,
+                    f"{sender}: {msg.message}\n"
+                )
+
+        self.root.after(5000, self.check_new_messages)
