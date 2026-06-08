@@ -96,3 +96,18 @@ class MessengerApp:
             self.entry_box.delete("1.0", tk.END)
         else:
             messagebox.showerror("Error", "Message failed to send.")
+
+    def load_messages_for_contact(self):
+        all_messages = self.messenger.retrieve_all()
+
+        for msg in all_messages:
+            if msg.sender == self.current_contact:
+                self.message_display.insert(
+                    tk.END,
+                    f"{msg.sender}: {msg.message}\n"
+                )
+            elif msg.recipient == self.current_contact:
+                self.message_display.insert(
+                    tk.END,
+                    f"Me: {msg.message}\n"
+                )
