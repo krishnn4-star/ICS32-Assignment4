@@ -30,3 +30,9 @@ def direct_message(
         }
     })
 
+def retrieve_new(token):
+
+    return json.dumps({
+        "token": token,
+        "directmessage": "new"
+    })
