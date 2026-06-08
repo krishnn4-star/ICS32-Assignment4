@@ -69,4 +69,12 @@ class MessengerApp:
             self.contacts.append(user)
             self.contact_list.insert(tk.END, user)
 
-    
+    def select_contact(self, event):
+        selection = self.contact_list.curselection()
+
+        if selection:
+            index = selection[0]
+            self.current_contact = self.contacts[index]
+
+            self.message_display.delete("1.0", tk.END)
+            self.load_messages_for_contact()
